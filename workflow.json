@@ -1,0 +1,93 @@
+{
+    "name": "WhatsApp-Driven Google Drive Assistant",
+    "nodes": [
+        {
+            "parameters": {},
+            "id": "twilio-in",
+            "name": "Twilio Webhook",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [
+                250,
+                300
+            ]
+        },
+        {
+            "parameters": {},
+            "id": "parser",
+            "name": "Command Parser",
+            "type": "n8n-nodes-base.function",
+            "typeVersion": 1,
+            "position": [
+                450,
+                300
+            ]
+        },
+        {
+            "parameters": {},
+            "id": "gdrive-action",
+            "name": "Google Drive Operation",
+            "type": "n8n-nodes-base.googleDrive",
+            "typeVersion": 1,
+            "position": [
+                650,
+                300
+            ]
+        },
+        {
+            "parameters": {},
+            "id": "openai-summary",
+            "name": "OpenAI GPT-4o Summary",
+            "type": "n8n-nodes-base.openai",
+            "typeVersion": 1,
+            "position": [
+                850,
+                300
+            ]
+        },
+        {
+            "parameters": {},
+            "id": "twilio-out",
+            "name": "Send WhatsApp Reply",
+            "type": "n8n-nodes-base.twilio",
+            "typeVersion": 1,
+            "position": [
+                1050,
+                300
+            ]
+        }
+    ],
+    "connections": {
+        "Twilio Webhook": {
+            "main": [
+                [
+                    "Command Parser"
+                ]
+            ]
+        },
+        "Command Parser": {
+            "main": [
+                [
+                    "Google Drive Operation"
+                ]
+            ]
+        },
+        "Google Drive Operation": {
+            "main": [
+                [
+                    "OpenAI GPT-4o Summary"
+                ]
+            ]
+        },
+        "OpenAI GPT-4o Summary": {
+            "main": [
+                [
+                    "Send WhatsApp Reply"
+                ]
+            ]
+        }
+    },
+    "active": false,
+    "settings": {},
+    "versionId": "1"
+}
